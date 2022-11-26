@@ -45,7 +45,7 @@ async function save(car) {
     var savedCar
     if (car._id) {
         // savedCar = await storageService.put(STORAGE_KEY, car)
-        savedCar = await httpService.put(`car/${carId}`, car)
+        savedCar = await httpService.put(`car/${car._id}`, car)
 
     } else {
         // Later, owner is set by the backend
