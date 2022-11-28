@@ -42,13 +42,14 @@ async function remove(carId) {
 async function add(car) {
     try {
         const collection = await dbService.getCollection('car')
-        const res = await collection.insertOne(car)
-        return res.ops[0]
+        await collection.insertOne(car)
+        return car
     } catch (err) {
         logger.error('cannot insert car', err)
         throw err
     }
 }
+
 async function update(car) {
     try {
         const carToSave = {
