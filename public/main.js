@@ -1,4 +1,4 @@
-import { carService } from './services/car.service.local.js'
+import { carService } from './services/car.service.js'
 import { userService } from './services/user.service.js'
 import { utilService } from './services/util.service.js'
 
@@ -35,7 +35,7 @@ async function onRemoveCar() {
 }
 
 async function onAddCar() {
-    await userService.login({ username: 'muki', password: '123' })
+    await userService.login({ username: 'puk', password: 'puk' })
     const savedCar = await carService.save(carService.getEmptyCar())
     render('Saved Car', savedCar)
 }

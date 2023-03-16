@@ -84,6 +84,10 @@ async function update(user) {
 
 async function add(user) {
     try {
+        // Validate that there are no such user:
+        const existUser = await getByUsername(user.username)
+        if (existUser) throw new Error('Username taken')
+
         // peek only updatable fields!
         const userToAdd = {
             username: user.username,

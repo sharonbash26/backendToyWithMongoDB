@@ -4,10 +4,10 @@ const logger = require('../../services/logger.service')
 
 async function getCars(req, res) {
   try {
-    logger.debug('Getting Cars')
     const filterBy = {
       txt: req.query.txt || ''
     }
+    logger.debug('Getting Cars', filterBy)
     const cars = await carService.query(filterBy)
     res.json(cars)
   } catch (err) {
@@ -57,8 +57,8 @@ async function updateCar(req, res) {
 async function removeCar(req, res) {
   try {
     const carId = req.params.id
-    const removedId = await carService.remove(carId)
-    res.send(removedId)
+    await carService.remove(carId)
+    res.send()
   } catch (err) {
     logger.error('Failed to remove car', err)
     res.status(500).send({ err: 'Failed to remove car' })
