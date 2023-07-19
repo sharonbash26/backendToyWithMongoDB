@@ -1,7 +1,13 @@
-const authService = require('./auth.service')
-const logger = require('../../services/logger.service')
+import { authService } from './auth.service.js'
+import { logger } from '../../services/logger.service.js'
 
-async function login(req, res) {
+// module.exports = {
+//     login,
+//     signup,
+//     logout
+// }
+
+export async function login(req, res) {
     const { username, password } = req.body
     try {
         const user = await authService.login(username, password)
@@ -16,7 +22,7 @@ async function login(req, res) {
     }
 }
 
-async function signup(req, res) {
+export async function signup(req, res) {
     try {
         const { username, password, fullname } = req.body
         // Never log passwords
@@ -35,17 +41,11 @@ async function signup(req, res) {
     }
 }
 
-async function logout(req, res){
+export async function logout(req, res){
     try {
         res.clearCookie('loginToken')
         res.send({ msg: 'Logged out successfully' })
     } catch (err) {
         res.status(500).send({ err: 'Failed to logout' })
     }
-}
-
-module.exports = {
-    login,
-    signup,
-    logout
 }

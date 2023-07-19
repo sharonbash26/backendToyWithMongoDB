@@ -1,31 +1,36 @@
-const logger = require('../services/logger.service')
-const authService = require('../api/auth/auth.service')
-const config = require('../config')
+import { logger } from '../services/logger.service.js'
+import { authService } from '../api/auth/auth.service.js'
+// import { config } from '../config'
 
-async function requireAuth(req, res, next) {
-  if (!req?.cookies?.loginToken) return res.status(401).send('Not Authenticated')
-  const loggedinUser = authService.validateToken(req.cookies.loginToken)
-  if (!loggedinUser) return res.status(401).send('Not Authenticated')
+export async function requireAuth(req, res, next) {
+    if (!req?.cookies?.loginToken) {
+        return res.status(401).send('Not Authenticated')
+    }
+    
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser) return res.status(401).send('Not Authenticated')
 
-  req.loggedinUser = loggedinUser
-  next()
+    req.loggedinUser = loggedinUser
+    next()
 }
 
-async function requireAdmin(req, res, next) {
-  if (!req?.cookies?.loginToken) return res.status(401).send('Not Authenticated')
-  const loggedinUser = authService.validateToken(req.cookies.loginToken)
-  if (!loggedinUser.isAdmin) {
-    logger.warn(loggedinUser.fullname + 'attempted to perform admin action')
-    res.status(403).end('Not Authorized')
-    return
-  }
-  next()
-}
+export async function requireAdmin(req, res, next) {
+    if (!req?.cookies?.loginToken) {
+        return res.status(401).send('Not Authenticated')
+    }
 
+    const loggedinUser = authService.validateToken(req.cookies.loginToken)
+    if (!loggedinUser.isAdmin) {
+        logger.warn(loggedinUser.fullname + 'attempted to perform admin action')
+        res.status(403).end('Not Authorized')
+        return
+    }
+    next()
+}
 
 // module.exports = requireAuth
 
-module.exports = {
-  requireAuth,
-  requireAdmin
-}
+// module.exports = {
+//   requireAuth,
+//   requireAdmin
+// }

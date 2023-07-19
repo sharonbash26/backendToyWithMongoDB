@@ -1,8 +1,15 @@
-const Cryptr = require('cryptr')
+import Cryptr from 'cryptr'
+import bcrypt from 'bcrypt'
 
-const bcrypt = require('bcrypt')
-const userService = require('../user/user.service')
-const logger = require('../../services/logger.service')
+import { userService } from '../user/user.service.js'
+import { logger } from '../../services/logger.service.js'
+
+export const authService = {
+    signup,
+    login,
+    getLoginToken,
+    validateToken
+}
 
 const cryptr = new Cryptr(process.env.SECRET1 || 'Secret-Puk-1234')
 
@@ -34,7 +41,6 @@ function getLoginToken(user) {
     return cryptr.encrypt(JSON.stringify(userInfo))    
 }
 
-
 function validateToken(loginToken) {
     try {
         const json = cryptr.decrypt(loginToken)
@@ -44,13 +50,4 @@ function validateToken(loginToken) {
         console.log('Invalid login token')
     }
     return null
-}
-
-
-
-module.exports = {
-    signup,
-    login,
-    getLoginToken,
-    validateToken
 }

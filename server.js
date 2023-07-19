@@ -1,10 +1,13 @@
-const express = require('express')
-const cookieParser = require('cookie-parser')
-const cors = require('cors')
-const path = require('path')
+import express  from 'express'
+import cookieParser from 'cookie-parser'
+import cors  from 'cors'
+import path from 'path'
+
+import { logger as loggerService } from './services/logger.service.js'
+loggerService.info('Hi', 90, 'Bobo')
 
 const app = express()
-const http = require('http').createServer(app)
+// const http = require('http').createServer(app)
 
 // Express App Config
 app.use(cookieParser())
@@ -24,9 +27,9 @@ if (process.env.NODE_ENV === 'production') {
     app.use(cors(corsOptions))
 }
 
-const authRoutes = require('./api/auth/auth.routes')
-const userRoutes = require('./api/user/user.routes')
-const carRoutes = require('./api/car/car.routes')
+import { authRoutes } from './api/auth/auth.routes.js'
+import { userRoutes } from './api/user/user.routes.js'
+import { carRoutes } from './api/car/car.routes.js'
 
 
 // routes
@@ -41,10 +44,7 @@ app.get('/**', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
-const logger = require('./services/logger.service')
-logger.info('Hi', 90, 'Bobo')
-
 const port = process.env.PORT || 3030
-http.listen(port, () => {
-    logger.info('Server is running on port: ' + port)
+app.listen(port, () => {
+    loggerService.info('Server is running on port: ' + port)
 })

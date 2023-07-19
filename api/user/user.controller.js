@@ -1,17 +1,17 @@
-const userService = require('./user.service')
-const logger = require('../../services/logger.service')
+import { userService } from './user.service.js'
+import { logger as loggerService } from '../../services/logger.service.js'
 
-async function getUser(req, res) {
+export async function getUser(req, res) {
     try {
         const user = await userService.getById(req.params.id)
         res.send(user)
     } catch (err) {
-        logger.error('Failed to get user', err)
+        loggerService.error('Failed to get user', err)
         res.status(500).send({ err: 'Failed to get user' })
     }
 }
 
-async function getUsers(req, res) {
+export async function getUsers(req, res) {
     try {
         const filterBy = {
             txt: req.query?.txt || '',
@@ -20,35 +20,35 @@ async function getUsers(req, res) {
         const users = await userService.query(filterBy)
         res.send(users)
     } catch (err) {
-        logger.error('Failed to get users', err)
+        loggerService.error('Failed to get users', err)
         res.status(500).send({ err: 'Failed to get users' })
     }
 }
 
-async function deleteUser(req, res) {
+export async function deleteUser(req, res) {
     try {
         await userService.remove(req.params.id)
         res.send({ msg: 'Deleted successfully' })
     } catch (err) {
-        logger.error('Failed to delete user', err)
+        loggerService.error('Failed to delete user', err)
         res.status(500).send({ err: 'Failed to delete user' })
     }
 }
 
-async function updateUser(req, res) {
+export async function updateUser(req, res) {
     try {
         const user = req.body
         const savedUser = await userService.update(user)
         res.send(savedUser)
     } catch (err) {
-        logger.error('Failed to update user', err)
+        loggerService.error('Failed to update user', err)
         res.status(500).send({ err: 'Failed to update user' })
     }
 }
 
-module.exports = {
-    getUser,
-    getUsers,
-    deleteUser,
-    updateUser
-}
+// module.exports = {
+//     getUser,
+//     getUsers,
+//     deleteUser,
+//     updateUser
+// }

@@ -1,20 +1,21 @@
-const express = require('express')
-const { requireAuth, requireAdmin } = require('../../middlewares/requireAuth.middleware')
-const { log } = require('../../middlewares/logger.middleware')
-const { getCars, getCarById, addCar, updateCar, removeCar, addCarMsg, removeCarMsg } = require('./car.controller')
-const router = express.Router()
+import express from 'express'
+import { requireAuth, requireAdmin } from '../../middlewares/requireAuth.middleware.js'
+import { log } from '../../middlewares/logger.middleware.js'
+import { getCars, getCarById, addCar, updateCar, removeCar, addCarMsg, removeCarMsg } from './car.controller.js'
+
+export const carRoutes = express.Router()
 
 // middleware that is specific to this router
 // router.use(requireAuth)
 
-router.get('/', log, getCars)
-router.get('/:id', getCarById)
-router.post('/', requireAuth, addCar)
-router.put('/:id', requireAuth, updateCar)
-router.delete('/:id', requireAuth, removeCar)
+carRoutes.get('/', log, getCars)
+carRoutes.get('/:id', getCarById)
+carRoutes.post('/', requireAuth, addCar)
+carRoutes.put('/:id', requireAuth, updateCar)
+carRoutes.delete('/:id', requireAuth, removeCar)
 // router.delete('/:id', requireAuth, requireAdmin, removeCar)
 
-router.post('/:id/msg', requireAuth, addCarMsg)
-router.delete('/:id/msg/:msgId', requireAuth, removeCarMsg)
+carRoutes.post('/:id/msg', requireAuth, addCarMsg)
+carRoutes.delete('/:id/msg/:msgId', requireAuth, removeCarMsg)
 
-module.exports = router
+// module.exports = router

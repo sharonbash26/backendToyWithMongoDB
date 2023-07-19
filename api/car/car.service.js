@@ -1,7 +1,8 @@
-const dbService = require('../../services/db.service')
-const logger = require('../../services/logger.service')
-const utilService = require('../../services/util.service')
-const {ObjectId} = require('mongodb')
+import ObjectId from 'mongodb'
+
+import { dbService } from '../../services/db.service.js'
+import { logger } from '../../services/logger.service.js'
+import { utilService } from '../../services/util.service.js'
 
 async function query(filterBy={txt:''}) {
     try {
@@ -87,7 +88,7 @@ async function removeCarMsg(carId, msgId) {
     }
 }
 
-module.exports = {
+export const carService = {
     remove,
     query,
     getById,
