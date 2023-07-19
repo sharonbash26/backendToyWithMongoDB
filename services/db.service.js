@@ -1,4 +1,3 @@
-// const MongoClient = require('mongodb').MongoClient
 import MongoClient from 'mongodb'
 
 import { config } from '../config/index.js'

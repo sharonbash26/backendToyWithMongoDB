@@ -21,10 +21,9 @@ export const logger = {
     }
 }
 
-//define the time format
 function _getTime() {
     let now = new Date()
-    return now.toLocaleString('he')
+    return now.toLocaleString('he') //define the time format
 }
 
 function _isError(e) {

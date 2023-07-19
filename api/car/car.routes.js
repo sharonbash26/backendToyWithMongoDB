@@ -17,5 +17,3 @@ carRoutes.delete('/:id', requireAuth, removeCar)
 
 carRoutes.post('/:id/msg', requireAuth, addCarMsg)
 carRoutes.delete('/:id/msg/:msgId', requireAuth, removeCarMsg)
-
-// module.exports = router

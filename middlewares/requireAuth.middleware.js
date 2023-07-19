@@ -1,6 +1,5 @@
 import { logger } from '../services/logger.service.js'
 import { authService } from '../api/auth/auth.service.js'
-// import { config } from '../config'
 
 export async function requireAuth(req, res, next) {
     if (!req?.cookies?.loginToken) {
@@ -27,10 +26,3 @@ export async function requireAdmin(req, res, next) {
     }
     next()
 }
-
-// module.exports = requireAuth
-
-// module.exports = {
-//   requireAuth,
-//   requireAdmin
-// }

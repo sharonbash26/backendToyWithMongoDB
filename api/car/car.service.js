@@ -1,4 +1,5 @@
-import ObjectId from 'mongodb'
+import mongodb from 'mongodb'
+const { ObjectId } = mongodb
 
 import { dbService } from '../../services/db.service.js'
 import { logger } from '../../services/logger.service.js'

@@ -1,17 +1,12 @@
 import { authService } from './auth.service.js'
 import { logger } from '../../services/logger.service.js'
 
-// module.exports = {
-//     login,
-//     signup,
-//     logout
-// }
-
 export async function login(req, res) {
     const { username, password } = req.body
     try {
         const user = await authService.login(username, password)
         const loginToken = authService.getLoginToken(user)
+        
         logger.info('User login: ', user)
         res.cookie('loginToken', loginToken)
 
@@ -25,15 +20,18 @@ export async function login(req, res) {
 export async function signup(req, res) {
     try {
         const { username, password, fullname } = req.body
-        // Never log passwords
+        
+        // IMPORTANT!!! 
+        // Never write passwords to log file!!!
         // logger.debug(fullname + ', ' + username + ', ' + password)
+        
         const account = await authService.signup(username, password, fullname)
         logger.debug(`auth.route - new account created: ` + JSON.stringify(account))
+        
         const user = await authService.login(username, password)
         const loginToken = authService.getLoginToken(user)
-        logger.info('User login: ', user)
-        res.cookie('loginToken', loginToken)
 
+        res.cookie('loginToken', loginToken)
         res.json(user)
     } catch (err) {
         logger.error('Failed to signup ' + err)

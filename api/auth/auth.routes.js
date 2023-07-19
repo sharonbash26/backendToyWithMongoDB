@@ -1,8 +1,6 @@
 import express from 'express'
 import { login, signup, logout } from './auth.controller.js'
 
-// module.exports = router
-
 export const authRoutes = express.Router()
 
 authRoutes.post('/login', login)
