@@ -1,7 +1,11 @@
 import express  from 'express'
 import cookieParser from 'cookie-parser'
 import cors  from 'cors'
-import path from 'path'
+import path, { dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 import { logger } from './services/logger.service.js'
 logger.info('server.js loaded...')
@@ -16,6 +20,7 @@ app.use(express.static('public'))
 if (process.env.NODE_ENV === 'production') {
     // Express serve static files on production environment
     app.use(express.static(path.resolve(__dirname, 'public')))
+    console.log('__dirname: ', __dirname)
 } else {
     // Configuring CORS
     const corsOptions = {
