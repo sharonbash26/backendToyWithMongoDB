@@ -6,7 +6,7 @@ export async function login(req, res) {
     try {
         const user = await authService.login(username, password)
         const loginToken = authService.getLoginToken(user)
-        
+        console.log({loginToken});
         logger.info('User login: ', user)
         res.cookie('loginToken', loginToken)
 
@@ -31,7 +31,7 @@ export async function signup(req, res) {
         const user = await authService.login(username, password)
         const loginToken = authService.getLoginToken(user)
 
-        res.cookie('loginToken', loginToken)
+        res.cookie('loginToken', loginToken) 
         res.json(user)
     } catch (err) {
         logger.error('Failed to signup ' + err)

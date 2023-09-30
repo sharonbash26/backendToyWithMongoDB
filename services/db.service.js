@@ -23,7 +23,7 @@ async function _connect() {
     if (dbConn) return dbConn
     try {
         const client = await MongoClient.connect(config.dbURL, { useNewUrlParser: true, useUnifiedTopology: true })
-        const db = client.db(config.dbName)
+        const db = client.db(config.dbName) // toy_db
         dbConn = db
         return db
     } catch (err) {

@@ -11,8 +11,8 @@ async function query(filterBy={txt:''}) {
             vendor: { $regex: filterBy.txt, $options: 'i' }
         }
         const collection = await dbService.getCollection('car')
-        var cars = await collection.find(criteria).toArray()
-        return cars
+        var cars = await collection.find({}).toArray()
+        return cars //[cars objectts]
     } catch (err) {
         logger.error('cannot find cars', err)
         throw err

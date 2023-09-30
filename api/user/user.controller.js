@@ -45,3 +45,17 @@ export async function updateUser(req, res) {
         res.status(500).send({ err: 'Failed to update user' })
     }
 }
+
+export async function addNewUser(req, res) {
+    try {
+        const {username, fullname, password,isAdmin} = req.body
+        console.log(req.body)
+        const newUser = {username, fullname, password,isAdmin}
+        console.log('newUser',newUser)
+        const savedUser = await userService.add(newUser)
+        res.send(savedUser)
+    } catch (err) {
+        logger.error('Failed to add user', err)
+        res.status(500).send({ err: 'Failed to add user' })
+    }
+}

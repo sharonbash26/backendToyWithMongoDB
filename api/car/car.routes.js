@@ -12,7 +12,8 @@ carRoutes.get('/', log, getCars)
 carRoutes.get('/:id', getCarById)
 carRoutes.post('/', requireAuth, addCar)
 carRoutes.put('/:id', requireAuth, updateCar)
-carRoutes.delete('/:id', requireAuth, removeCar)
+carRoutes.delete('/:id', removeCar)
+
 // router.delete('/:id', requireAuth, requireAdmin, removeCar)
 
 carRoutes.post('/:id/msg', requireAuth, addCarMsg)

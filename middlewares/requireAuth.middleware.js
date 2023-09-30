@@ -1,6 +1,6 @@
 import { logger } from '../services/logger.service.js'
 import { authService } from '../api/auth/auth.service.js'
-
+//login in
 export async function requireAuth(req, res, next) {
     if (!req?.cookies?.loginToken) {
         return res.status(401).send('Not Authenticated')
